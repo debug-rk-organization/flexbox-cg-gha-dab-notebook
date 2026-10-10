@@ -1,0 +1,66 @@
+# yaml-language-server: $schema=../bundle_config_schema.json
+
+# environment specific configurations for your bundle.
+# Useful reference: https://docs.databricks.com/en/dev-tools/bundles/variables.html
+
+variables:
+  secret_scope:
+    description: Databricks secret scope.
+    default: ""
+  run_as_sp:
+    description: SP to run jobs as.
+    default: ""
+  cluster_policy_id:
+    description: Cluster Policy ID
+    default: ""
+  job_status:
+    description: Used to set the pause_status of jobs depending on environment
+    default: ""
+
+targets:
+  dev:
+    workspace:
+      host: adb-1111111111111110.10.azuredatabricks.net
+    variables:
+      secret_scope: kv-chk-dev-01-scope
+      run_as_sp:
+        lookup:
+          service_principal: az-sp-chk-01-dev
+      cluster_policy_id:
+        lookup:
+          cluster_policy: chk-policy-dev
+      job_status: PAUSED
+    run_as:
+      service_principal_name: "${var.run_as_sp}"
+  uat:
+    workspace:
+      host: adb-1111111111111111.11.azuredatabricks.net
+      root_path: "/Workspace/flexbox_cg_gha_dab_notebook"
+    variables:
+      secret_scope: kv-chk-uat-01-scope
+      run_as_sp:
+        lookup:
+          service_principal: az-sp-chk-01-uat
+      cluster_policy_id:
+        lookup:
+          cluster_policy: chk-policy-uat
+      job_status: PAUSED
+    run_as:
+      service_principal_name: "${var.run_as_sp}"
+    mode: production
+  prod:
+    workspace:
+      host: adb-1111111111111112.12.azuredatabricks.net
+      root_path: "/Workspace/flexbox_cg_gha_dab_notebook"
+    variables:
+      secret_scope: kv-chk-prod-01-scope
+      run_as_sp:
+        lookup:
+          service_principal: az-sp-chk-01-prod
+      cluster_policy_id:
+        lookup:
+          cluster_policy: chk-policy-prod
+      job_status: UNPAUSED
+    run_as:
+      service_principal_name: "${var.run_as_sp}"
+    mode: production

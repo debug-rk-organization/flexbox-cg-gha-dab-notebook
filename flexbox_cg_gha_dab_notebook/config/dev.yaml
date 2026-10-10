@@ -1,0 +1,14 @@
+---
+catalog-name: flexbox_cg_gha_dab_notebook_dev
+schema-name: bronze_flexbox_cg_gha_dab_notebook
+storage:
+  account-name: sa01flexflowchk01dev
+  container-name: schemas
+tables:
+# this is an example of how your can save per-table settings
+- logical-name: bronze_flexbox_cg_gha_dab_notebook_foo
+  destination-path: bronze_flexbox_cg_gha_dab_notebook_foo
+  source-path: abfss://landing-zone@sa01flexflowchk01dev.dfs.core.windows.net/dab-template-tests/cdl-data-types.csv
+  unity-catalog-table-name: "foo"
+  tags:
+    cdl_status_intent: "published"

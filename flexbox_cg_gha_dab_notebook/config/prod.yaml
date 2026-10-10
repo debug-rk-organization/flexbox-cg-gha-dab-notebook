@@ -1,0 +1,13 @@
+---
+catalog-name: flexbox_cg_gha_dab_notebook_prod
+schema-name: bronze_flexbox_cg_gha_dab_notebook
+storage:
+  account-name: sa01flexflowchk01prod
+  container-name: schemas
+tables:
+- logical-name: bronze_flexbox_cg_gha_dab_notebook_foo
+  destination-path: bronze_flexbox_cg_gha_dab_notebook_foo
+  source-path: abfss://landing-zone@sa01flexflowchk01dev.dfs.core.windows.net/foo.csv
+  unity-catalog-table-name: "foo"
+  tags:
+    cdl_status_intent: "published"
